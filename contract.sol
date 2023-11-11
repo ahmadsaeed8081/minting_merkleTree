@@ -56,8 +56,8 @@ contract NFT is ERC721Enumerable, Ownable {
         // require(isValid(proof, keccak256(abi.encodePacked(msg.sender))), "Not a part of Allowlist");
         uint256 supply = totalSupply();
 
-        bool isWhitelister1=isValid1(proof, keccak256(abi.encodePacked(msg.sender)));
-        bool isWhitelister2=isValid2(proof, keccak256(abi.encodePacked(msg.sender)));
+        bool isWhitelister1=isValid1(proof, msg.sender);
+        bool isWhitelister2=isValid2(proof, msg.sender);
 
             if(whitelister_phase1)
             {
@@ -95,12 +95,12 @@ contract NFT is ERC721Enumerable, Ownable {
         }
 
 
-    function isValid1(bytes32[] memory proof, bytes32 leaf) public view returns (bool) {
+    function isValid1(bytes32[] memory proof, address leaf) public view returns (bool) {
         
         return MerkleProof.verify(proof, root1, keccak256(abi.encodePacked(leaf)));
     }
 
-    function isValid2(bytes32[] memory proof, bytes32 leaf) public view returns (bool) {
+    function isValid2(bytes32[] memory proof, address leaf) public view returns (bool) {
         return MerkleProof.verify(proof, root2, keccak256(abi.encodePacked(leaf)));
     }
     

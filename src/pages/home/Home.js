@@ -322,7 +322,7 @@ const Home = () => {
 
             <div className=' my-4 flex justify-between items-center border border-black rounded-md p-3'>
                 <div>
-                    <img src={require('../../assets/images/ollie.gif')} height='40px' width="60px" className=' rounded-md'   alt='' />
+                    <img src={require('../../assets/images/prereveal.png')} height='40px' width="60px" className=' rounded-md'   alt='' />
                 </div>
                 <div>
                     <h2 className='  text-black-200 text-sm'>Price Per NFT</h2>
