@@ -150,7 +150,6 @@ const Home = () => {
           alert("You cant't mint more than 1 NFT");
           return;
         }
-        curr_price=0;
         
 
 
@@ -172,14 +171,13 @@ const Home = () => {
           alert("You cant't mint more than 3 NFT");
           return;
         }
-        curr_price=Number(wp2_cost)*Number(quantity);
       }
-      else if(publicSalePhase)
-      {
+      // else if(publicSalePhase)
+      // {
         
-        curr_price=Number(publicCost)*Number(quantity);
+      //   curr_price=Number(publicCost)*Number(quantity);
 
-      }
+      // }
 
 
       if((Number(curr_price) * Number(quantity)) > Number(balance) )
@@ -236,7 +234,7 @@ const Home = () => {
       let publicSalePhase = await contract.methods.publicSalePhase().call();  
 
       let wp1_limit = await contract.methods.wp1_limit().call();  
-      let wp2_limit = await contract.methods.wp2_limit().call();  
+      let wp2_limit = await contract.methods.wp2_limit().call();   
 
       let wp1_totalBought = await contract.methods.wp1(address).call();  
       let wp2_totalBought = await contract.methods.wp2(address).call();
@@ -246,7 +244,21 @@ const Home = () => {
 
       let maxSupply = await contract.methods.maxSupply().call();
 
-      
+      if(whitelister_phase1)
+      {
+        set_curr_price(0)
+      }
+      else if(whitelister_phase2)
+      {
+
+        set_curr_price(wp2_cost)
+      }
+      else if(publicSalePhase)
+      {
+        set_curr_price(public_cost)
+
+
+      }
   
       set_curr_time(currentTime);
       set_maxSupply(maxSupply);

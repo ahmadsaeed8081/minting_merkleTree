@@ -1,4 +1,4 @@
-export const cont_add="0xB4D03081d9F751606Ebe166d25f36e2bD14545c2";
+export const cont_add="0x00e041bE8F9eff8913513E9b0367CdC298F32Cf2";
 
 export const cont_abi=[
 	{
@@ -261,9 +261,9 @@ export const cont_abi=[
 				"type": "bytes32[]"
 			},
 			{
-				"internalType": "bytes32",
+				"internalType": "address",
 				"name": "leaf",
-				"type": "bytes32"
+				"type": "address"
 			}
 		],
 		"name": "isValid1",
@@ -285,9 +285,9 @@ export const cont_abi=[
 				"type": "bytes32[]"
 			},
 			{
-				"internalType": "bytes32",
+				"internalType": "address",
 				"name": "leaf",
-				"type": "bytes32"
+				"type": "address"
 			}
 		],
 		"name": "isValid2",
@@ -608,13 +608,7 @@ export const cont_abi=[
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "_value",
-				"type": "bool"
-			}
-		],
+		"inputs": [],
 		"name": "set_public_phase",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -660,26 +654,14 @@ export const cont_abi=[
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "_value",
-				"type": "bool"
-			}
-		],
+		"inputs": [],
 		"name": "set_whitelister_phase1",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "_value",
-				"type": "bool"
-			}
-		],
+		"inputs": [],
 		"name": "set_whitelister_phase2",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -996,4 +978,4 @@ export const cont_abi=[
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
+]
