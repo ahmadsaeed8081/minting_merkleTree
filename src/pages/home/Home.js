@@ -84,6 +84,7 @@ const Home = () => {
     const [isWhitelister1,set_isWhitelister1] = useState("");
     const [isWhitelister2,set_isWhitelister2 ] = useState("");
     const [publicCost,set_publicCost ] = useState("");
+    const [curr_proof,set_curr_proof ] = useState("");
 
     
     const [ref, set_ref] = useState("0x0000000000000000000000000000000000000000");
@@ -103,8 +104,8 @@ const Home = () => {
     } = useContractWrite({
       address: cont_add,
       abi: cont_abi,
-      functionName: "mint",
-      args: [address,quantity],
+      functionName: "safeMint",
+      args: [address,curr_proof,quantity],
       value: (Number(quantity)* Number(curr_price)).toString(),
       // value: ((perPlpValue * ((stakeAmount * 3)/100))/perPlsUsd)/10**18,
       onSuccess(data) {
@@ -247,14 +248,17 @@ const Home = () => {
       if(whitelister_phase1)
       {
         set_curr_price(0)
+        set_curr_proof(proof1)
       }
       else if(whitelister_phase2)
       {
+        set_curr_proof(proof2)
 
         set_curr_price(wp2_cost)
       }
       else if(publicSalePhase)
       {
+        set_curr_proof(proof2)
         set_curr_price(public_cost)
 
 
