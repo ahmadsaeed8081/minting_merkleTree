@@ -13,6 +13,7 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
+import axios  from 'axios';
 import { MerkleTree } from 'merkletreejs'
 import { keccak256 }  from 'keccak256'
 // import {keccak256} from "ethereum-cryptography/keccak"
@@ -33,9 +34,9 @@ const Home = () => {
       }
     };
 
-    const proof1=["0xfabe60f1de63230b1d229b6b6084184151d384ff17a4882fb56201d5fb795dda","0xd178ccb819c6885b980fd35d2d682abe97275bceeadd03a7418d9ad8d8c760b6","0x18591696f63ede8dd68a25a491d6713a8fd59fda69ff80f32990f6d2600cc392","0xfd1bc2f10a229b82ff5a1af1332311e0357da3b001b15546fcba3bc7cb9f8b95","0x953fd6cfc3344a0e713297fbd9b0b8e7b1e5c5336816f30367766ed3af47648a","0xd9212db418c6df55d581d9ac010a4e0221acad4e462933d4c326202d715cb903","0xeb6a65405365f4cc0898c00f438fab75cd1d0b6848616d78714eed76d9046c00"]
+    // const proof1=["0xfabe60f1de63230b1d229b6b6084184151d384ff17a4882fb56201d5fb795dda","0xd178ccb819c6885b980fd35d2d682abe97275bceeadd03a7418d9ad8d8c760b6","0x18591696f63ede8dd68a25a491d6713a8fd59fda69ff80f32990f6d2600cc392","0xfd1bc2f10a229b82ff5a1af1332311e0357da3b001b15546fcba3bc7cb9f8b95","0x953fd6cfc3344a0e713297fbd9b0b8e7b1e5c5336816f30367766ed3af47648a","0xd9212db418c6df55d581d9ac010a4e0221acad4e462933d4c326202d715cb903","0x0ed6480a351a284f2663608442d4dc56fe3ac79a30fb3c7b936738f544523a82"];
 
-    const proof2=["0xfb58768b20b7891b1ad92c712462a77ef523d3a6e8bbee853463e90db626d338","0xac1853597350349b2f42210b85975d652a9b51fb0a26eadb0423bc2ec1c63abb","0x4b4bacea112e4b7f616d80d57465185903b0cda9ddbf9cdb010436db9bec4981","0xfb23ea6ccb39f20b024ebb55b843c364491ee3ea2fe48c828117ddd74643ad87","0xff6e0187b462813c33c15227e05556480827cda72240c2b7f16e721e4204a68d","0x4ae157ea220d249ad55d00857ef107c0d425c1418ebf22713ec62cde42e20116","0xb489ba9473de8dd4a8684639e626a1a13d2084b47d9effbc2cc3941d5919d5d5"];
+    const proof2=["0xfb58768b20b7891b1ad92c712462a77ef523d3a6e8bbee853463e90db626d338","0xac1853597350349b2f42210b85975d652a9b51fb0a26eadb0423bc2ec1c63abb","0x709863e51f8120d049df588df324d3437a5acff5ce3d33c969a3562397dc4a97","0xfb23ea6ccb39f20b024ebb55b843c364491ee3ea2fe48c828117ddd74643ad87","0x2a6251735bfbd18873de6b5e9463a8effd2ca45558f3a8f02cc97ea0d14005ca","0xd0b24ce611d61fa975f775010dc1ea19a1a043ccdb8e49908e10df49c8fc989e","0xff6e0187b462813c33c15227e05556480827cda72240c2b7f16e721e4204a68d","0x4ae157ea220d249ad55d00857ef107c0d425c1418ebf22713ec62cde42e20116","0xb489ba9473de8dd4a8684639e626a1a13d2084b47d9effbc2cc3941d5919d5d5"];
 
     const targetTime = new Date("2035-01-01").getTime();
 
@@ -84,7 +85,7 @@ const Home = () => {
     const [isWhitelister1,set_isWhitelister1] = useState("");
     const [isWhitelister2,set_isWhitelister2 ] = useState("");
     const [publicCost,set_publicCost ] = useState("");
-    const [curr_proof,set_curr_proof ] = useState("");
+    const [curr_proof,set_curr_proof ] = useState([]);
 
     
     const [ref, set_ref] = useState("0x0000000000000000000000000000000000000000");
@@ -225,6 +226,8 @@ const Home = () => {
       const balance = await web3.eth.getBalance(address);
       const contract = new web3.eth.Contract(cont_abi, cont_add);
       console.log("object1");
+      let isWhitelister1;
+      let isWhitelister2;
       let supply = await contract.methods.totalSupply().call();
 
       let public_cost = await contract.methods.pp_cost().call();
@@ -240,25 +243,40 @@ const Home = () => {
       let wp1_totalBought = await contract.methods.wp1(address).call();  
       let wp2_totalBought = await contract.methods.wp2(address).call();
       let currentTime = await contract.methods.curr_time().call();  
-      let isWhitelister1 = await contract.methods.isValid1(proof1,address).call({from : address});  
-      let isWhitelister2 = await contract.methods.isValid2(proof2,address).call({from : address});  
+      
+      let maxSupply = await contract.methods.maxSupply().call()
+      // const res0 =await axios.get("https://merkletreeapi-production-eedc.up.railway.app/proof1?"+ new URLSearchParams({
+      //   userAddress: address}));
 
-      let maxSupply = await contract.methods.maxSupply().call();
+      //   alert(res0.data)
 
       if(whitelister_phase1)
       {
+        const res0 =await axios.get("https://merkletreeapi-production-eedc.up.railway.app/proof1?"+ new URLSearchParams({
+          userAddress: address}));
+
         set_curr_price(0)
-        set_curr_proof(proof1)
+
+         isWhitelister1 = await contract.methods.isValid1(res0.data,address).call({from : address});  
+
+
+        set_curr_proof(res0.data[0])
+
       }
       else if(whitelister_phase2)
       {
-        set_curr_proof(proof2)
 
+        const res0 =await axios.get("https://merkletreeapi-production-eedc.up.railway.app/proof2?"+ new URLSearchParams({
+          userAddress: address}));
+         isWhitelister2 = await contract.methods.isValid2(res0.data,address).call({from : address});  
+
+        set_curr_proof(res0.data[0])
         set_curr_price(wp2_cost)
+
       }
       else if(publicSalePhase)
       {
-        set_curr_proof(proof2)
+        // set_curr_proof(proof2)
         set_curr_price(public_cost)
 
 

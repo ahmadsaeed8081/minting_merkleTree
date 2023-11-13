@@ -20,7 +20,8 @@ function merk1()
     const leaf = keccak256("0x952F3C482D3A7Ff3B6dEFC6b40DB7B9A0580a0B7") 
     const proof = tree.getProof(leaf).map(x => buf2hex(x.data))
     console.log(proof);
-    console.log(buf2hex(leaf));
+    return proof;
+    // console.log(buf2hex(leaf));
 
 }
 function merk2()
@@ -41,7 +42,7 @@ function merk2()
     
     const leaf = keccak256("0xdEeD41183d70d39ad9eD44819B356271336E3CE9") 
     const proof = tree.getProof(leaf).map(x => buf2hex(x.data))
-    console.log(proof);
+    return proof;
 }
 
 merk1();
