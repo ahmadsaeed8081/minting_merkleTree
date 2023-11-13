@@ -14,7 +14,7 @@ import Web3 from "web3";
 function App() {
 
   // const chains = [mainnet]
-const projectId = 'f385bf4e147a499aee6b6c2f17ded944'
+const projectId = '9675ae0c2568c73538c3e40908645a1c'
 
 // const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
 const { chains, publicClient } = configureChains(
