@@ -13,14 +13,14 @@ import Web3 from "web3";
 
 function App() {
 
-  const chains = [mainnet]
+  // const chains = [mainnet]
 const projectId = 'f385bf4e147a499aee6b6c2f17ded944'
 
-const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
-// const { chains, publicClient } = configureChains(
-//   [polygon],
-//   [({ apiKey: 'tTXdAIDIsIsUyC322Hw-FwS0PPYvO5yw' })],
-// )alchemyProvider
+// const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
+const { chains, publicClient } = configureChains(
+  [mainnet],
+  [infuraProvider({ apiKey: '43e6a0aa7efb458980fb0bbe529855b7' })],
+)
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: w3mConnectors({ projectId, chains }),

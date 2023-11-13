@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import { useAccount} from "wagmi";
@@ -14,9 +15,6 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import axios  from 'axios';
-import { MerkleTree } from 'merkletreejs'
-import { keccak256 }  from 'keccak256'
-// import {keccak256} from "ethereum-cryptography/keccak"
 const Home = () => {
 
     const [quantity, set_quantity] = useState("");
@@ -248,7 +246,6 @@ const Home = () => {
         set_curr_price(0)
 
          isWhitelister1 = await contract.methods.isValid1(res0.data,address).call({from : address});  
-
 
         set_curr_proof(res0.data)
 
