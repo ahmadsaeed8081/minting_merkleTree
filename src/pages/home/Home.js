@@ -145,7 +145,7 @@ const Home = () => {
         }
         if(wp1_totalBought>0)
         {
-          alert("You have minted! You cant't mint more than 1 NFT");
+          alert("You have minted! You cant't mint more than 2 NFT");
           return;
         }
         if(quantity>1)
@@ -171,7 +171,7 @@ const Home = () => {
         }
         if(quantity> (Number(wp2_limit) - Number(wp2_totalBought)) )
         {
-          alert("You cant't mint more than 3 NFT");
+          alert("You cant't mint more than 4 NFT");
           return;
         }
       }
