@@ -85,7 +85,7 @@ const Home = () => {
     const [isWhitelister1,set_isWhitelister1] = useState("");
     const [isWhitelister2,set_isWhitelister2 ] = useState("");
     const [publicCost,set_publicCost ] = useState("");
-    const [curr_proof,set_curr_proof ] = useState([]);
+    const [curr_proof,set_curr_proof ] = useState("");
 
     
     const [ref, set_ref] = useState("0x0000000000000000000000000000000000000000");
@@ -137,6 +137,7 @@ const Home = () => {
 
       if(whitelister_phase1)
       {
+        console.log("phase 1");
         if(!isWhitelister1)
         {
           alert("You are not a Whitelister");
@@ -192,10 +193,12 @@ const Home = () => {
         alert("kindly write the amount");
         return
       }
-  
+      console.log("work");
+
       if (chain.id != networkId) {
         mint_switch?.();
       } else {
+        console.log(curr_proof);
         mint?.();
       }
     }
@@ -260,7 +263,7 @@ const Home = () => {
          isWhitelister1 = await contract.methods.isValid1(res0.data,address).call({from : address});  
 
 
-        set_curr_proof(res0.data[0])
+        set_curr_proof(res0.data)
 
       }
       else if(whitelister_phase2)
@@ -270,7 +273,7 @@ const Home = () => {
           userAddress: address}));
          isWhitelister2 = await contract.methods.isValid2(res0.data,address).call({from : address});  
 
-        set_curr_proof(res0.data[0])
+        set_curr_proof(res0.data)
         set_curr_price(wp2_cost)
 
       }
