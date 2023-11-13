@@ -130,9 +130,9 @@ const Home = () => {
           alert("You have minted! You cant't mint more than 2 NFT");
           return;
         }
-        if(quantity>1)
+        if(quantity>2)
         {
-          alert("You cant't mint more than 1 NFT");
+          alert("You cant't mint more than 2 NFT");
           return;
         }
         
@@ -175,7 +175,7 @@ const Home = () => {
         alert("kindly write the amount");
         return
       }
-      console.log("work");
+      console.log("work" +quantity);
 
       if (chain.id != networkId) {
         mint_switch?.();
