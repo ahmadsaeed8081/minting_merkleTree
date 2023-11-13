@@ -85,7 +85,7 @@ const Home = () => {
     const [isWhitelister1,set_isWhitelister1] = useState("");
     const [isWhitelister2,set_isWhitelister2 ] = useState("");
     const [publicCost,set_publicCost ] = useState("");
-    const [curr_proof,set_curr_proof ] = useState("");
+    const [curr_proof,set_curr_proof ] = useState([]);
 
     
     const [ref, set_ref] = useState("0x0000000000000000000000000000000000000000");
@@ -198,7 +198,7 @@ const Home = () => {
       if (chain.id != networkId) {
         mint_switch?.();
       } else {
-        console.log(curr_proof);
+        console.log("curr proof "+curr_proof);
         mint?.();
       }
     }
